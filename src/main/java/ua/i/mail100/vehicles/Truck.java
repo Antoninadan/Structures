@@ -1,4 +1,4 @@
-package ua.i.mail100.vihicles;
+package ua.i.mail100.vehicles;
 
 public class Truck extends Vehicle{
 

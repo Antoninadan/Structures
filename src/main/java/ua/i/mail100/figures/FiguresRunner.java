@@ -10,6 +10,6 @@ public class FiguresRunner {
         System.out.println(triangleOne.calculateSquare());
         System.out.println(rombOne.calculateSquare());
 
-        parallelogramOne.print(parallelogramOne);
+        parallelogramOne.print();
     }
 }

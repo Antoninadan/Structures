@@ -1,7 +1,7 @@
-package ua.i.mail100.vihicles;
+package ua.i.mail100.vehicles;
 
-public class Car extends Vehicle{
-    public static enum Type{
+public class Car extends Vehicle {
+    public static enum Type {
         SUV,
         RACING_CAR,
         COMPACT_CAR;
@@ -12,9 +12,18 @@ public class Car extends Vehicle{
 
     }
 
+    public void print(Integer integer) {
+
+    }
+
+    public void print(int i) {
+
+    }
+
     @Override
     void accelerate() {
         System.out.println("Car accelerate");
+//        print(2);
     }
 
     @Override
@@ -22,7 +31,7 @@ public class Car extends Vehicle{
         System.out.println("Car brake");
     }
 
-    void refuel(Fuel fuel){
+    void refuel(Fuel fuel) {
         try {
             if (!permittedFuel.contains(fuel)) {
                 brake();

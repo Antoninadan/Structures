@@ -1,5 +1,7 @@
 package ua.i.mail100.shapes;
 
+import ua.i.mail100.shapes.for_test.Shape;
+
 public class Square extends Shape {
 
     public Square() {
@@ -11,3 +13,5 @@ public class Square extends Shape {
         System.out.println("draw square");
     }
 }
+
+

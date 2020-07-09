@@ -6,8 +6,4 @@ public class Parallelogram extends Figure{
         super(side, height);
     }
 
-    @Override
-    public Double calculateSquare() {
-        return side * height;
-    }
 }
