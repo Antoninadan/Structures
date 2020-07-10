@@ -32,9 +32,9 @@ public abstract class Vehicle {
 interface Fuelable {
     void refuel();
 
-    private void go() {
-
-    }
+//    private void go() {
+//
+//    }
 
     default void print() {
 
