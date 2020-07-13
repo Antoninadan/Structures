@@ -50,6 +50,21 @@ public class MyArrayList {
         return result.toString();
     }
 
+    public String toStringReverse() {
+        StringBuffer result = new StringBuffer();
+        result.append("Reverse, size=");
+        result.append(size);
+        result.append(": [");
+
+        for (int i = size-1; i >= 0; i--) {
+            result.append(mas[i]);
+            if (i > 0) result.append(", ");
+            else result.append("]");
+        }
+        return result.toString();
+    }
+
+
     public void add(int value) {
         if (index == size) {
             throw new RuntimeException("array is full");
@@ -95,6 +110,14 @@ public class MyArrayList {
         index = result.index;
     }
 
+    public void change(int indexToChange, int value) {
+        if (indexToChange > index) {
+            throw new RuntimeException("wrong index");
+        }
+
+        mas[indexToChange] = value;
+    }
+
     public void increaseOnSize(int additionalSize) {
         MyArrayList result = new MyArrayList(size + additionalSize);
         result.add(this);
@@ -124,19 +147,16 @@ public class MyArrayList {
             result.add(array.mas[i]);
         }
 
-        if (array.index >= indexTo) {
+        if (array.index > indexTo) {
             result.index = resultSize;
         } else if (array.index >= indexFrom) {
             result.index = array.index - indexFrom;
-            System.out.println(array.index);
-            System.out.println("gfhdf");
         } else {
             result.index = 0;
         }
 
         return result;
     }
-
 
     public void concatenateWith(MyArrayList concatenated) {
         int newSize = size + concatenated.size;
@@ -149,4 +169,26 @@ public class MyArrayList {
         size = newSize;
         index = result.index;
     }
+
+    public void bubbleSort() {
+        MyArrayList result = getArrayCopiedFrom(this, 0, index);
+        SortService.buble(result.mas);
+        result.increaseOnSize(size - index);
+
+        mas = result.mas;
+    }
+
+    public int seacrh(int criteria) {
+        MyArrayList array = getArrayCopiedFrom(this, 0, index);
+        return SearchService.linear(array.mas, criteria);
+    }
+
+    public void shuffle() {
+        MyArrayList result = getArrayCopiedFrom(this, 0, index);
+        ShuffleService.shuffle(result.mas);
+        result.increaseOnSize(size - index);
+
+        mas = result.mas;
+    }
+
 }
