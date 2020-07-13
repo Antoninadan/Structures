@@ -393,6 +393,33 @@ class MyArrayListTest {
         assertEquals(0, one.getMas()[7]);
     }
 
+    void deleteDuplicates() {
+        MyArrayList one = new MyArrayList(10);
+        one.add(0);
+        one.add(1);
+        one.add(2);
+        one.add(1);
+        one.add(3);
+        one.add(4);
+        one.add(0);
+        one.add(1);
+        one.add(5);
+
+        one.deleteDuplicates();
+
+        assertEquals(0, one.getMas()[0]);
+        assertEquals(1, one.getMas()[1]);
+        assertEquals(2, one.getMas()[2]);
+        assertEquals(3, one.getMas()[3]);
+        assertEquals(4, one.getMas()[4]);
+        assertEquals(5, one.getMas()[5]);
+        assertEquals(0, one.getMas()[6]);
+        assertEquals(0, one.getMas()[7]);
+        assertEquals(0, one.getMas()[8]);
+        assertEquals(0, one.getMas()[9]);
+
+    }
+
 }
 
 //test:

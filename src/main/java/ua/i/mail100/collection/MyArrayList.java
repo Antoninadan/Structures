@@ -56,7 +56,7 @@ public class MyArrayList {
         result.append(size);
         result.append(": [");
 
-        for (int i = size-1; i >= 0; i--) {
+        for (int i = size - 1; i >= 0; i--) {
             result.append(mas[i]);
             if (i > 0) result.append(", ");
             else result.append("]");
@@ -191,4 +191,13 @@ public class MyArrayList {
         mas = result.mas;
     }
 
+    public void deleteDuplicates() {
+        for (int i = 0; i <= index; i++) {
+            int current = mas[i];
+            for (int j = i + 1; j <= index; j++) {
+                if (current == mas[j])
+                    delete(j);
+            }
+        }
+    }
 }
