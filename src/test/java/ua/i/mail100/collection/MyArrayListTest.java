@@ -2,6 +2,7 @@ package ua.i.mail100.collection;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ua.i.mail100.array.MyArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -346,7 +347,7 @@ class MyArrayListTest {
         assertEquals(expected, one.toStringReverse());
     }
 
-    void bubbleSort() {
+    void sort() {
         MyArrayList one = new MyArrayList(8);
         one.add(10);
         one.add(-11);
@@ -354,7 +355,7 @@ class MyArrayListTest {
         one.add(-1);
         one.add(0);
 
-        one.bubbleSort();
+        one.sort();
         assertEquals(-11, one.getMas()[0]);
         assertEquals(-1, one.getMas()[1]);
         assertEquals(0, one.getMas()[2]);

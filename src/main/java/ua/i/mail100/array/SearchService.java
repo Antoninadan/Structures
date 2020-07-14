@@ -1,4 +1,4 @@
-package ua.i.mail100.collection;
+package ua.i.mail100.array;
 
 public class SearchService {
     public static int linear(int[] array, int criteria) {

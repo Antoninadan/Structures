@@ -1,4 +1,4 @@
-package ua.i.mail100.collection;
+package ua.i.mail100.array;
 
 public class MyArrayList {
     private int[] mas;
@@ -170,7 +170,7 @@ public class MyArrayList {
         index = result.index;
     }
 
-    public void bubbleSort() {
+    public void sort() {
         MyArrayList result = getArrayCopiedFrom(this, 0, index);
         SortService.buble(result.mas);
         result.increaseOnSize(size - index);

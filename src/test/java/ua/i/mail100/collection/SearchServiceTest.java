@@ -1,6 +1,7 @@
 package ua.i.mail100.collection;
 
 import org.junit.jupiter.api.Test;
+import ua.i.mail100.array.SearchService;
 
 import static org.junit.jupiter.api.Assertions.*;
 

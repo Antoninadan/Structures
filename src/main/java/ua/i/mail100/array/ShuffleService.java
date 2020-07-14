@@ -1,4 +1,4 @@
-package ua.i.mail100.collection;
+package ua.i.mail100.array;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;

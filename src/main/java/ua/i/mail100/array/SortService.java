@@ -1,4 +1,4 @@
-package ua.i.mail100.collection;
+package ua.i.mail100.array;
 
 public class SortService {
     public static void buble(int[] array) {
