@@ -1,7 +1,5 @@
 package ua.i.mail100.refactorinheritance;
 
-import ua.i.mail100.collection.model.RelatedGood;
-
 import java.util.List;
 
 public abstract class Reference {

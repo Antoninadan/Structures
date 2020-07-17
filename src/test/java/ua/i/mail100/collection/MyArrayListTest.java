@@ -1,11 +1,10 @@
 package ua.i.mail100.collection;
 
-import org.junit.Rule;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ua.i.mail100.array.MyArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 //TODO
 //ExceptedException, SystemOutRule(outer)
 class MyArrayListTest {
@@ -25,13 +24,22 @@ class MyArrayListTest {
 
     @Test
     void addValueOverload() {
-        MyArrayList two = new MyArrayList(1);
-        two.add(10);
+        MyArrayList one = new MyArrayList(1);
+        one.add(10);
+        assertEquals(1, one.getSize());
 
-        Throwable thrown = assertThrows(RuntimeException.class, () -> {
-            two.add(11);
-        });
-        assertNotNull(thrown.getMessage());
+        one.add(11);
+        assertEquals(2, one.getSize());
+
+
+        MyArrayList two = new MyArrayList(4);
+        two.add(10);
+        two.add(11);
+        two.add(12);
+        two.add(13);
+        two.add(14);
+
+        assertEquals(8, two.getSize());
     }
 
     @Test
@@ -46,37 +54,32 @@ class MyArrayListTest {
 
         assertEquals(10, one.getArray()[0]);
         assertEquals(11, one.getArray()[1]);
-        assertEquals(one.getArray()[2], 1);
-        assertEquals(one.getArray()[3], 2);
-        assertEquals(one.getArray()[4], 0);
-        assertEquals(one.getIndex(), 4);
+        assertEquals(1, one.getArray()[2] );
+        assertEquals(2,one.getArray()[3]);
+        assertEquals(0, one.getArray()[4]);
+        assertEquals(4, one.getIndex());
     }
 
     @Test
-    void addArrayErrorOverload() {
+    void addArrayOverload() {
         MyArrayList one = new MyArrayList(2);
         one.add(10);
         one.add(11);
         MyArrayList two = new MyArrayList(1);
         two.add(11);
-        Throwable thrown = assertThrows(RuntimeException.class, () -> {
-            one.add(two);
-        });
-        assertNotNull(thrown.getMessage());
-    }
+        one.add(two);
 
-    @Test
-    void addArrayErrorOverload2() {
-        MyArrayList one = new MyArrayList(3);
-        one.add(10);
-        one.add(11);
-        MyArrayList two = new MyArrayList(2);
-        two.add(1);
-        two.add(1);
-        Throwable thrown = assertThrows(RuntimeException.class, () -> {
-            one.add(two);
-        });
-        assertNotNull(thrown.getMessage());
+        assertEquals(5, one.getSize());
+
+        MyArrayList three = new MyArrayList(3);
+        three.add(10);
+        three.add(11);
+        MyArrayList four = new MyArrayList(2);
+        four.add(1);
+        four.add(1);
+        three.add(four);
+
+        assertEquals(8, three.getSize());
     }
 
     @Test

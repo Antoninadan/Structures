@@ -1,7 +1,10 @@
 package ua.i.mail100.array;
 
 public class MyArrayList {
-    private static final String EXCEPTION_OVERSIZE = "gdfsgdfs";
+    private static final String EXCEPTION_WRONG_INDEX = "Wrong index";
+    private static final String EXCEPTION_DELETE_LAST_ELEMENT = "Forbidden delete the last element";
+    private static final String EXCEPTION_DECREASE_TO_LESS_SIZE = "Array has more then required size";
+
 
     private int[] array;
     private int size;
@@ -54,35 +57,34 @@ public class MyArrayList {
         return result.toString();
     }
 
-    // TODO resize *2
     public void add(int value) {
         if (index == size) {
-            throw new RuntimeException("array is full");
+            this.increaseOnSize(size);
         }
         array[index] = value;
         index++;
     }
 
-    // TODO resize *2, remove start variable
     public void add(MyArrayList added) {
-        if (size <= (index - 1 + added.index - 1)) {
-            throw new RuntimeException("dont have enough size");
+        if (size <= (index + added.index )) {
+            this.increaseOnSize(size + added.index);
         }
-        int start = index;
 
-        for (int i = start; i < start + added.index; i++) {
-            array[i] = added.array[i - start];
+        int startIndex = index;
+
+        for (int i = startIndex; i < startIndex + added.index; i++) {
+            array[i] = added.array[i - startIndex];
             index++;
         }
     }
 
     public void deleteByIndex(int indexToDelete) {
         if (indexToDelete + 1 > size) {
-            throw new RuntimeException("wrong index");
+            throw new RuntimeException(EXCEPTION_WRONG_INDEX);
         }
 
         if (size == 1) {
-            throw new RuntimeException("dont deleteByIndex the last element");
+            throw new RuntimeException(EXCEPTION_DELETE_LAST_ELEMENT);
         }
 
         MyArrayList result;
@@ -104,7 +106,7 @@ public class MyArrayList {
 
     public void change(int indexToChange, int value) {
         if (indexToChange > index) {
-            throw new RuntimeException("wrong index");
+            throw new RuntimeException(EXCEPTION_WRONG_INDEX);
         }
 
         array[indexToChange] = value;
@@ -119,7 +121,7 @@ public class MyArrayList {
 
     public void decreaseToSize(int newSize) {
         if (index > newSize) {
-            throw new RuntimeException("current array content more then required size");
+            throw new RuntimeException(EXCEPTION_DECREASE_TO_LESS_SIZE);
         }
 
         MyArrayList result = new MyArrayList(newSize);
@@ -130,7 +132,7 @@ public class MyArrayList {
 
     public static MyArrayList getArrayCopiedFrom(MyArrayList array, int indexFrom, int indexTo) {
         if (indexFrom > indexTo || array.size <= indexTo) {
-            throw new RuntimeException("wrong indexes");
+            throw new RuntimeException(EXCEPTION_WRONG_INDEX);
         }
 
         int resultSize = indexTo - indexFrom + 1;
