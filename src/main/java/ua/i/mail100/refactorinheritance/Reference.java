@@ -1,5 +1,7 @@
 package ua.i.mail100.refactorinheritance;
 
+import ua.i.mail100.collection.model.RelatedGood;
+
 import java.util.List;
 
 public abstract class Reference {
@@ -20,43 +22,6 @@ public abstract class Reference {
         this.volume = volume;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
-    }
+    public abstract void processing(Reference reference);
 
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Boolean getUpdated() {
-        return isUpdated;
-    }
-
-    public void setUpdated(Boolean updated) {
-        isUpdated = updated;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getVolume() {
-        return volume;
-    }
-
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
 }

@@ -13,19 +13,8 @@ public class ArticleReference extends Reference {
         this.endPage = endPage;
     }
 
-    public int getStartPage() {
-        return startPage;
-    }
-
-    public void setStartPage(int startPage) {
-        this.startPage = startPage;
-    }
-
-    public int getEndPage() {
-        return endPage;
-    }
-
-    public void setEndPage(int endPage) {
-        this.endPage = endPage;
+    @Override
+    public void processing(Reference reference) {
+        System.out.println("do with article reference");
     }
 }

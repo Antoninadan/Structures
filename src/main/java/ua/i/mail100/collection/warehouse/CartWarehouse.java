@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CartWarehouse {
-    private Map<User, Cart> warehouse;
+    private Map<User, Cart> savedCarts;
     private static CartWarehouse instance;
 
     private CartWarehouse() {
-        warehouse = new HashMap<>();
+        savedCarts = new HashMap<>();
     }
 
     public static CartWarehouse getInstance() {
@@ -22,8 +22,8 @@ public class CartWarehouse {
     }
 
     public Cart getByUser(User user) {
-        if (warehouse.containsKey(user))
-            return warehouse.get(user);
-        return warehouse.put(user, new Cart());
+        if (savedCarts.containsKey(user))
+            return savedCarts.get(user);
+        return savedCarts.put(user, new Cart(user));
    }
 }

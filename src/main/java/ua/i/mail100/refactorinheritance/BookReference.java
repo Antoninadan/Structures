@@ -10,11 +10,8 @@ public class BookReference extends Reference {
         this.countOfpages = countOfpages;
     }
 
-    public int getCountOfpages() {
-        return countOfpages;
-    }
-
-    public void setCountOfpages(int countOfpages) {
-        this.countOfpages = countOfpages;
+    @Override
+    public void processing(Reference reference) {
+        System.out.println("do with book reference");
     }
 }

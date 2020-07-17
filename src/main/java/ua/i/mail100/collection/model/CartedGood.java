@@ -1,31 +1,25 @@
 package ua.i.mail100.collection.model;
 
-import ua.i.mail100.collection.warehouse.CartWarehouse;
-
-import java.util.List;
-
 public abstract class CartedGood implements Purchased {
     private Purchased purchased;
     private int amount;
-    private Cart cart;
 
-    public CartedGood(User user, int amount) {
-        CartWarehouse cartWarehouse = CartWarehouse.getInstance();
-        this.cart = cartWarehouse.getByUser(user);
+    public CartedGood(Purchased purchased, int amount) {
+        this.purchased = purchased;
         this.amount = amount;
     }
 
-
-    public Cart addToCart(Cart cart, int amount) {
-        return null;
+    public int getAmount() {
+        return amount;
     }
 
+    @Override
+    public abstract String toString();
 
-
-    public Cart removeFromCart(Cart cart) {
-        return null;
+    public void changeAmount(int newAmount) {
+        if (newAmount <= 0) {
+            throw new RuntimeException("not validate amount");
+        }
+        amount = newAmount;
     }
-
-
-
 }

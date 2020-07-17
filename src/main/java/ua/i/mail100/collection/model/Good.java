@@ -8,4 +8,11 @@ public class Good{
     private String producer;
     private Date manufactureDate;
     private Integer amount;
+
+    public Good(String name, String producer, Date manufactureDate, Integer amount) {
+        this.name = name;
+        this.producer = producer;
+        this.manufactureDate = manufactureDate;
+        this.amount = amount;
+    }
 }

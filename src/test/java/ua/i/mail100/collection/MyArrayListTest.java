@@ -1,17 +1,14 @@
 package ua.i.mail100.collection;
 
+import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ua.i.mail100.array.MyArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+//TODO
+//ExceptedException, SystemOutRule(outer)
 class MyArrayListTest {
-
-    @BeforeEach
-    void setUp() {
-    }
-
 
     @Test
     void addValue() {
@@ -19,10 +16,10 @@ class MyArrayListTest {
         one.add(10);
         one.add(11);
 
-        assertEquals(10, one.getMas()[0]);
-        assertEquals(11, one.getMas()[1]);
-        assertEquals(0, one.getMas()[2]);
-        assertEquals(0, one.getMas()[3]);
+        assertEquals(10, one.getArray()[0]);
+        assertEquals(11, one.getArray()[1]);
+        assertEquals(0, one.getArray()[2]);
+        assertEquals(0, one.getArray()[3]);
         assertEquals(2, one.getIndex());
     }
 
@@ -47,11 +44,11 @@ class MyArrayListTest {
         two.add(2);
         one.add(two);
 
-        assertEquals(10, one.getMas()[0]);
-        assertEquals(11, one.getMas()[1]);
-        assertEquals(one.getMas()[2], 1);
-        assertEquals(one.getMas()[3], 2);
-        assertEquals(one.getMas()[4], 0);
+        assertEquals(10, one.getArray()[0]);
+        assertEquals(11, one.getArray()[1]);
+        assertEquals(one.getArray()[2], 1);
+        assertEquals(one.getArray()[3], 2);
+        assertEquals(one.getArray()[4], 0);
         assertEquals(one.getIndex(), 4);
     }
 
@@ -91,11 +88,11 @@ class MyArrayListTest {
         one.add(12);
 
         assertEquals(one.getSize(), 5);
-        assertEquals(one.getMas()[0], 10);
-        assertEquals(one.getMas()[1], 11);
-        assertEquals(one.getMas()[2], 12);
-        assertEquals(one.getMas()[3], 0);
-        assertEquals(one.getMas()[4], 0);
+        assertEquals(one.getArray()[0], 10);
+        assertEquals(one.getArray()[1], 11);
+        assertEquals(one.getArray()[2], 12);
+        assertEquals(one.getArray()[3], 0);
+        assertEquals(one.getArray()[4], 0);
         assertEquals(one.getIndex(), 3);
     }
 
@@ -107,10 +104,10 @@ class MyArrayListTest {
         one.decreaseToSize(4);
 
         assertEquals(one.getSize(), 4);
-        assertEquals(one.getMas()[0], 10);
-        assertEquals(one.getMas()[1], 11);
-        assertEquals(one.getMas()[2], 0);
-        assertEquals(one.getMas()[3], 0);
+        assertEquals(one.getArray()[0], 10);
+        assertEquals(one.getArray()[1], 11);
+        assertEquals(one.getArray()[2], 0);
+        assertEquals(one.getArray()[3], 0);
         assertEquals(one.getIndex(), 2);
     }
 
@@ -137,12 +134,12 @@ class MyArrayListTest {
 
         one.concatenateWith(two);
         assertEquals(one.getSize(), 6);
-        assertEquals(one.getMas()[0], 10);
-        assertEquals(one.getMas()[1], 11);
-        assertEquals(one.getMas()[2], 12);
-        assertEquals(one.getMas()[3], 1);
-        assertEquals(one.getMas()[4], 0);
-        assertEquals(one.getMas()[5], 0);
+        assertEquals(one.getArray()[0], 10);
+        assertEquals(one.getArray()[1], 11);
+        assertEquals(one.getArray()[2], 12);
+        assertEquals(one.getArray()[3], 1);
+        assertEquals(one.getArray()[4], 0);
+        assertEquals(one.getArray()[5], 0);
         assertEquals(one.getIndex(), 4);
 
         MyArrayList three = new MyArrayList(2);
@@ -150,28 +147,28 @@ class MyArrayListTest {
 
         one.concatenateWith(three);
         assertEquals(one.getSize(), 8);
-        assertEquals(one.getMas()[0], 10);
-        assertEquals(one.getMas()[1], 11);
-        assertEquals(one.getMas()[2], 12);
-        assertEquals(one.getMas()[3], 1);
-        assertEquals(one.getMas()[4], 100);
-        assertEquals(one.getMas()[5], 0);
-        assertEquals(one.getMas()[6], 0);
-        assertEquals(one.getMas()[7], 0);
+        assertEquals(one.getArray()[0], 10);
+        assertEquals(one.getArray()[1], 11);
+        assertEquals(one.getArray()[2], 12);
+        assertEquals(one.getArray()[3], 1);
+        assertEquals(one.getArray()[4], 100);
+        assertEquals(one.getArray()[5], 0);
+        assertEquals(one.getArray()[6], 0);
+        assertEquals(one.getArray()[7], 0);
         assertEquals(one.getIndex(), 5);
 
         MyArrayList four = new MyArrayList(1);
         one.concatenateWith(four);
         assertEquals(9, one.getSize());
-        assertEquals(one.getMas()[0], 10);
-        assertEquals(one.getMas()[1], 11);
-        assertEquals(one.getMas()[2], 12);
-        assertEquals(one.getMas()[3], 1);
-        assertEquals(one.getMas()[4], 100);
-        assertEquals(one.getMas()[5], 0);
-        assertEquals(one.getMas()[6], 0);
-        assertEquals(one.getMas()[7], 0);
-        assertEquals(one.getMas()[8], 0);
+        assertEquals(one.getArray()[0], 10);
+        assertEquals(one.getArray()[1], 11);
+        assertEquals(one.getArray()[2], 12);
+        assertEquals(one.getArray()[3], 1);
+        assertEquals(one.getArray()[4], 100);
+        assertEquals(one.getArray()[5], 0);
+        assertEquals(one.getArray()[6], 0);
+        assertEquals(one.getArray()[7], 0);
+        assertEquals(one.getArray()[8], 0);
         assertEquals(one.getIndex(), 5);
     }
 
@@ -185,26 +182,26 @@ class MyArrayListTest {
 
         MyArrayList result = MyArrayList.getArrayCopiedFrom(one, 1, 3);
         assertEquals(result.getSize(), 3);
-        assertEquals(result.getMas()[0], 11);
-        assertEquals(result.getMas()[1], 12);
-        assertEquals(result.getMas()[2], 13);
+        assertEquals(result.getArray()[0], 11);
+        assertEquals(result.getArray()[1], 12);
+        assertEquals(result.getArray()[2], 13);
         assertEquals(3, result.getIndex());
 
         MyArrayList resultTwo = MyArrayList.getArrayCopiedFrom(one, 0, 0);
         assertEquals(resultTwo.getSize(), 1);
-        assertEquals(resultTwo.getMas()[0], 10);
+        assertEquals(resultTwo.getArray()[0], 10);
         assertEquals(1, resultTwo.getIndex());
 
         MyArrayList resultThree = MyArrayList.getArrayCopiedFrom(one, 6, 6);
         assertEquals(resultThree.getSize(), 1);
-        assertEquals(resultThree.getMas()[0], 0);
+        assertEquals(resultThree.getArray()[0], 0);
         assertEquals(0, resultThree.getIndex());
 
         MyArrayList resultFour = MyArrayList.getArrayCopiedFrom(one, 4, 6);
         assertEquals(resultFour.getSize(), 3);
-        assertEquals(resultFour.getMas()[0], 0);
-        assertEquals(resultFour.getMas()[1], 0);
-        assertEquals(resultFour.getMas()[2], 0);
+        assertEquals(resultFour.getArray()[0], 0);
+        assertEquals(resultFour.getArray()[1], 0);
+        assertEquals(resultFour.getArray()[2], 0);
         assertEquals(0, resultFour.getIndex());
 
 
@@ -213,8 +210,8 @@ class MyArrayListTest {
 
         MyArrayList resultFive = MyArrayList.getArrayCopiedFrom(one, 5, 6);
         assertEquals(2, resultFive.getSize());
-        assertEquals(15, resultFive.getMas()[0]);
-        assertEquals(0, resultFive.getMas()[1]);
+        assertEquals(15, resultFive.getArray()[0]);
+        assertEquals(0, resultFive.getArray()[1]);
         assertEquals(1, resultFive.getIndex());
     }
 
@@ -227,12 +224,12 @@ class MyArrayListTest {
         one.add(12);
         one.add(13);
 
-        one.delete(2);
+        one.deleteByIndex(2);
         assertEquals(one.getSize(), 4);
-        assertEquals(one.getMas()[0], 10);
-        assertEquals(one.getMas()[1], 11);
-        assertEquals(one.getMas()[2], 13);
-        assertEquals(one.getMas()[3], 0);
+        assertEquals(one.getArray()[0], 10);
+        assertEquals(one.getArray()[1], 11);
+        assertEquals(one.getArray()[2], 13);
+        assertEquals(one.getArray()[3], 0);
         assertEquals(3, one.getIndex());
 
 
@@ -242,12 +239,12 @@ class MyArrayListTest {
         two.add(12);
         two.add(13);
 
-        two.delete(0);
+        two.deleteByIndex(0);
         assertEquals(two.getSize(), 4);
-        assertEquals(two.getMas()[0], 11);
-        assertEquals(two.getMas()[1], 12);
-        assertEquals(two.getMas()[2], 13);
-        assertEquals(two.getMas()[3], 0);
+        assertEquals(two.getArray()[0], 11);
+        assertEquals(two.getArray()[1], 12);
+        assertEquals(two.getArray()[2], 13);
+        assertEquals(two.getArray()[3], 0);
         assertEquals(3, two.getIndex());
 
 
@@ -258,12 +255,12 @@ class MyArrayListTest {
         three.add(13);
         three.add(14);
 
-        three.delete(4);
+        three.deleteByIndex(4);
         assertEquals(three.getSize(), 4);
-        assertEquals(three.getMas()[0], 10);
-        assertEquals(three.getMas()[1], 11);
-        assertEquals(three.getMas()[2], 12);
-        assertEquals(three.getMas()[3], 13);
+        assertEquals(three.getArray()[0], 10);
+        assertEquals(three.getArray()[1], 11);
+        assertEquals(three.getArray()[2], 12);
+        assertEquals(three.getArray()[3], 13);
         assertEquals(4, three.getIndex());
 
 
@@ -271,9 +268,9 @@ class MyArrayListTest {
         four.add(10);
         four.add(11);
 
-        four.delete(1);
+        four.deleteByIndex(1);
         assertEquals(four.getSize(), 1);
-        assertEquals(four.getMas()[0], 10);
+        assertEquals(four.getArray()[0], 10);
         assertEquals(1, four.getIndex());
     }
 
@@ -281,7 +278,7 @@ class MyArrayListTest {
     void deleteErrorWrongIndex() {
         MyArrayList one = new MyArrayList(5);
         Throwable thrown = assertThrows(RuntimeException.class, () -> {
-            one.delete(6);
+            one.deleteByIndex(6);
         });
         assertNotNull(thrown.getMessage());
     }
@@ -290,7 +287,7 @@ class MyArrayListTest {
     void deleteErrorLastElement() {
         MyArrayList one = new MyArrayList(1);
         Throwable thrown = assertThrows(RuntimeException.class, () -> {
-            one.delete(6);
+            one.deleteByIndex(6);
         });
         assertNotNull(thrown.getMessage());
     }
@@ -305,11 +302,11 @@ class MyArrayListTest {
 
         one.change(2, 100);
         assertEquals(one.getSize(), 5);
-        assertEquals(one.getMas()[0], 10);
-        assertEquals(one.getMas()[1], 11);
-        assertEquals(one.getMas()[2], 100);
-        assertEquals(one.getMas()[3], 13);
-        assertEquals(one.getMas()[4], 0);
+        assertEquals(one.getArray()[0], 10);
+        assertEquals(one.getArray()[1], 11);
+        assertEquals(one.getArray()[2], 100);
+        assertEquals(one.getArray()[3], 13);
+        assertEquals(one.getArray()[4], 0);
         assertEquals(4, one.getIndex());
     }
 
@@ -356,14 +353,14 @@ class MyArrayListTest {
         one.add(0);
 
         one.sort();
-        assertEquals(-11, one.getMas()[0]);
-        assertEquals(-1, one.getMas()[1]);
-        assertEquals(0, one.getMas()[2]);
-        assertEquals(10, one.getMas()[3]);
-        assertEquals(100, one.getMas()[4]);
-        assertEquals(0, one.getMas()[5]);
-        assertEquals(0, one.getMas()[6]);
-        assertEquals(0, one.getMas()[7]);
+        assertEquals(-11, one.getArray()[0]);
+        assertEquals(-1, one.getArray()[1]);
+        assertEquals(0, one.getArray()[2]);
+        assertEquals(10, one.getArray()[3]);
+        assertEquals(100, one.getArray()[4]);
+        assertEquals(0, one.getArray()[5]);
+        assertEquals(0, one.getArray()[6]);
+        assertEquals(0, one.getArray()[7]);
     }
 
     void saerch() {
@@ -389,9 +386,9 @@ class MyArrayListTest {
 
         one.shuffle();
 
-        assertEquals(0, one.getMas()[5]);
-        assertEquals(0, one.getMas()[6]);
-        assertEquals(0, one.getMas()[7]);
+        assertEquals(0, one.getArray()[5]);
+        assertEquals(0, one.getArray()[6]);
+        assertEquals(0, one.getArray()[7]);
     }
 
     void deleteDuplicates() {
@@ -408,16 +405,16 @@ class MyArrayListTest {
 
         one.deleteDuplicates();
 
-        assertEquals(0, one.getMas()[0]);
-        assertEquals(1, one.getMas()[1]);
-        assertEquals(2, one.getMas()[2]);
-        assertEquals(3, one.getMas()[3]);
-        assertEquals(4, one.getMas()[4]);
-        assertEquals(5, one.getMas()[5]);
-        assertEquals(0, one.getMas()[6]);
-        assertEquals(0, one.getMas()[7]);
-        assertEquals(0, one.getMas()[8]);
-        assertEquals(0, one.getMas()[9]);
+        assertEquals(0, one.getArray()[0]);
+        assertEquals(1, one.getArray()[1]);
+        assertEquals(2, one.getArray()[2]);
+        assertEquals(3, one.getArray()[3]);
+        assertEquals(4, one.getArray()[4]);
+        assertEquals(5, one.getArray()[5]);
+        assertEquals(0, one.getArray()[6]);
+        assertEquals(0, one.getArray()[7]);
+        assertEquals(0, one.getArray()[8]);
+        assertEquals(0, one.getArray()[9]);
 
     }
 

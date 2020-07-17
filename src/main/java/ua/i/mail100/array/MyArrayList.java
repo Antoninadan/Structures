@@ -1,38 +1,28 @@
 package ua.i.mail100.array;
 
 public class MyArrayList {
-    private int[] mas;
+    private static final String EXCEPTION_OVERSIZE = "gdfsgdfs";
+
+    private int[] array;
     private int size;
     private int index;
 
     public MyArrayList(int size) {
         this.index = 0;
         this.size = size;
-        this.mas = new int[size];
+        this.array = new int[size];
     }
 
-    public int[] getMas() {
-        return mas;
-    }
-
-    public void setMas(int[] mas) {
-        this.mas = mas;
+    public int[] getArray() {
+        return array;
     }
 
     public int getSize() {
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public int getIndex() {
         return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     @Override
@@ -43,7 +33,7 @@ public class MyArrayList {
         result.append(": [");
 
         for (int i = 0; i < size; i++) {
-            result.append(mas[i]);
+            result.append(array[i]);
             if (i < (size - 1)) result.append(", ");
             else result.append("]");
         }
@@ -57,40 +47,42 @@ public class MyArrayList {
         result.append(": [");
 
         for (int i = size - 1; i >= 0; i--) {
-            result.append(mas[i]);
+            result.append(array[i]);
             if (i > 0) result.append(", ");
             else result.append("]");
         }
         return result.toString();
     }
 
-
+    // TODO resize *2
     public void add(int value) {
         if (index == size) {
             throw new RuntimeException("array is full");
         }
-        mas[index] = value;
+        array[index] = value;
         index++;
     }
 
+    // TODO resize *2, remove start variable
     public void add(MyArrayList added) {
-        if (size <= (index + added.index - 2)) {
-            throw new RuntimeException("dont have enaught size");
+        if (size <= (index - 1 + added.index - 1)) {
+            throw new RuntimeException("dont have enough size");
         }
         int start = index;
-        for (int i = start; i < (start + added.index); i++) {
-            mas[i] = added.mas[i - start];
+
+        for (int i = start; i < start + added.index; i++) {
+            array[i] = added.array[i - start];
             index++;
         }
     }
 
-    public void delete(int indexToDelete) {
+    public void deleteByIndex(int indexToDelete) {
         if (indexToDelete + 1 > size) {
             throw new RuntimeException("wrong index");
         }
 
         if (size == 1) {
-            throw new RuntimeException("dont delete the last element");
+            throw new RuntimeException("dont deleteByIndex the last element");
         }
 
         MyArrayList result;
@@ -105,7 +97,7 @@ public class MyArrayList {
             }
         }
 
-        mas = result.mas;
+        array = result.array;
         size--;
         index = result.index;
     }
@@ -115,13 +107,13 @@ public class MyArrayList {
             throw new RuntimeException("wrong index");
         }
 
-        mas[indexToChange] = value;
+        array[indexToChange] = value;
     }
 
     public void increaseOnSize(int additionalSize) {
         MyArrayList result = new MyArrayList(size + additionalSize);
         result.add(this);
-        mas = result.mas;
+        array = result.array;
         size += additionalSize;
     }
 
@@ -132,19 +124,19 @@ public class MyArrayList {
 
         MyArrayList result = new MyArrayList(newSize);
         result.add(this);
-        mas = result.mas;
+        array = result.array;
         size = newSize;
     }
 
     public static MyArrayList getArrayCopiedFrom(MyArrayList array, int indexFrom, int indexTo) {
-        if ((indexFrom > indexTo) || (array.size <= indexTo)) {
+        if (indexFrom > indexTo || array.size <= indexTo) {
             throw new RuntimeException("wrong indexes");
         }
 
         int resultSize = indexTo - indexFrom + 1;
         MyArrayList result = new MyArrayList(resultSize);
         for (int i = indexFrom; i <= indexTo; i++) {
-            result.add(array.mas[i]);
+            result.add(array.array[i]);
         }
 
         if (array.index > indexTo) {
@@ -165,38 +157,38 @@ public class MyArrayList {
         result.add(this);
         result.add(concatenated);
 
-        mas = result.mas;
+        array = result.array;
         size = newSize;
         index = result.index;
     }
 
     public void sort() {
         MyArrayList result = getArrayCopiedFrom(this, 0, index);
-        SortService.buble(result.mas);
+        SortService.buble(result.array);
         result.increaseOnSize(size - index);
 
-        mas = result.mas;
+        array = result.array;
     }
 
     public int seacrh(int criteria) {
         MyArrayList array = getArrayCopiedFrom(this, 0, index);
-        return SearchService.linear(array.mas, criteria);
+        return SearchService.linear(array.array, criteria);
     }
 
     public void shuffle() {
         MyArrayList result = getArrayCopiedFrom(this, 0, index);
-        ShuffleService.shuffle(result.mas);
+        ShuffleService.shuffle(result.array);
         result.increaseOnSize(size - index);
 
-        mas = result.mas;
+        array = result.array;
     }
 
     public void deleteDuplicates() {
         for (int i = 0; i <= index; i++) {
-            int current = mas[i];
+            int current = array[i];
             for (int j = i + 1; j <= index; j++) {
-                if (current == mas[j])
-                    delete(j);
+                if (current == array[j])
+                    deleteByIndex(j);
             }
         }
     }
