@@ -1,4 +1,4 @@
-package ua.i.mail100.collection.model;
+package ua.i.mail100.collection;
 
 import java.util.Map;
 

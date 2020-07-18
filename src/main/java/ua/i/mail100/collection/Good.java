@@ -1,4 +1,4 @@
-package ua.i.mail100.collection.model;
+package ua.i.mail100.collection;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,14 +9,32 @@ public class Good {
     private String name;
     private String producer;
     private Date manufactureDate;
+    private Integer price;
     private Integer amount;
     private CategoryNode categoryNode;
 
-    public Good(String name, String producer, Date manufactureDate, Integer amount, CategoryNode categoryNode) {
+    public Good(String name, String producer, Date manufactureDate, Integer price, Integer amount, CategoryNode categoryNode) {
         this.name = name;
         this.producer = producer;
         this.manufactureDate = manufactureDate;
+        this.price = price;
         this.amount = amount;
+        this.categoryNode = categoryNode;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public CategoryNode getCategoryNode() {
+        return categoryNode;
+    }
+
+    public void setCategoryNode(CategoryNode categoryNode) {
         this.categoryNode = categoryNode;
     }
 
@@ -41,9 +59,10 @@ public class Good {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
         return categoryNode+
-                " " + name +
+                ": " + name +
                 " " + producer +
                 ", " + dateFormat.format(manufactureDate) +
+                ", price = " + price +
                 ", amount = " + amount;
     }
 

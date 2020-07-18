@@ -1,11 +1,9 @@
-package ua.i.mail100.collection.model;
+package ua.i.mail100.collection;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import ua.i.mail100.collection.Category;
+import ua.i.mail100.collection.CategoryNode;
 
 import static org.junit.jupiter.api.Assertions.*;
 

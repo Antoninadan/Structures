@@ -1,7 +1,10 @@
-package ua.i.mail100.collection.model;
+package ua.i.mail100.collection;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ua.i.mail100.collection.Category;
+import ua.i.mail100.collection.CategoryNode;
+import ua.i.mail100.collection.Good;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -34,12 +37,12 @@ class GoodTest {
         CategoryNode categoryNodeSeven = new CategoryNode(Category.BATTERY, null);
 
 
-        radio = new Good("radio", "Mayak", dateOne, 4, categoryNodeFour);
-        tv = new Good("TV", "Gorizont", dateTwo, 100, categoryNodeFive);
-        remote = new Good("remote control", "LG", dateThree, 20, categoryNodeSix);
-        battery = new Good("battery", "Duracel", dateFour, 1000, categoryNodeSeven);
-        a7 = new Good("A7", "Samsung", dateFive, 200, categoryNodeTwo);
-        charge = new Good("Charge Type S", "Samsung", dateFive, 35, categoryNodeThree);
+        radio = new Good("radio", "Mayak", dateOne, 1000, 4, categoryNodeFour);
+        tv = new Good("TV", "Gorizont", dateTwo, 2000, 100, categoryNodeFive);
+        remote = new Good("remote control", "LG", dateThree, 300, 20, categoryNodeSix);
+        battery = new Good("battery", "Duracel", dateFour, 50, 150, categoryNodeSeven);
+        a7 = new Good("A7", "Samsung", dateFive, 20000, 200, categoryNodeTwo);
+        charge = new Good("Charge Type S", "Samsung", dateFive, 200, 35, categoryNodeThree);
 
     }
 
@@ -51,7 +54,7 @@ class GoodTest {
 
     @Test
     void toStringShop() {
-        String expected = "PHONES_AND_OTHER/PHONES/CHARGE Charge Type S Samsung, 2020.05.10, amount = 35";
+        String expected = "PHONES_AND_OTHER/PHONES/CHARGE: Charge Type S Samsung, 2020.05.10, price = 200, amount = 35";
         assertEquals(expected, charge.toStringShop());
     }
 }

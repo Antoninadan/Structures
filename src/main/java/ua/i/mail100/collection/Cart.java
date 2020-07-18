@@ -1,7 +1,8 @@
-package ua.i.mail100.collection.model;
+package ua.i.mail100.collection;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Cart {
@@ -66,20 +67,45 @@ public class Cart {
         good.setAmount(good.getAmount() - amount);
     }
 
-    // TODO sub goods delete
     public void removeFromCart(Good good) {
         if (!goods.containsKey(good)) {
             throw new RuntimeException(EXCEPTION_ABSENT_GOOD_IN_CART);
         }
+
         good.setAmount(good.getAmount() + goods.get(good));
         goods.remove(good);
+        relatedGoodsRemove(good);
+
+    }
+
+    public void relatedGoodsRemove(Good good) {
+        List<Good> relatedGoods = getRelatedGoodsTo(good);
+        for (Good each : relatedGoods) {
+            each.setAmount(each.getAmount() + goods.get(each));
+            goods.remove(each);
+        }
+    }
+
+    public List<Good> getRelatedGoodsTo(Good good) {
+        List<Good> result = new ArrayList<>();
+        CategoryNode node = good.getCategoryNode();
+
+        for (Map.Entry<Good, Integer> each : goods.entrySet()) {
+            CategoryNode eachNode = each.getKey().getCategoryNode();
+            if (CategoryNode.isChild(eachNode, node))
+                result.add(each.getKey());
+        }
+        return result;
     }
 
     public int getTotal() {
         Purchased purchased = (m) -> {
-            return 1;
+            int total = 0;
+            for(Map.Entry<Good, Integer> each:m.entrySet())
+            total += each.getValue() * each.getKey().getPrice();
+            return total;
         };
-        return 1;
+        return purchased.getTotalPrice(goods);
     }
 }
 

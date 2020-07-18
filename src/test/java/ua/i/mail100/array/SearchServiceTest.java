@@ -1,4 +1,4 @@
-package ua.i.mail100.collection;
+package ua.i.mail100.array;
 
 import org.junit.jupiter.api.Test;
 import ua.i.mail100.array.SearchService;

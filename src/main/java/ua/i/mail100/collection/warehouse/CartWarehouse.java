@@ -1,7 +1,7 @@
 package ua.i.mail100.collection.warehouse;
 
-import ua.i.mail100.collection.model.Cart;
-import ua.i.mail100.collection.model.User;
+import ua.i.mail100.collection.Cart;
+import ua.i.mail100.collection.User;
 
 import java.util.HashMap;
 import java.util.Map;
