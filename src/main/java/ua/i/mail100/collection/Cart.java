@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Cart {
     private static final String LINE_SEP = System.getProperty("line.separator");
@@ -18,52 +20,45 @@ public class Cart {
         goods = new LinkedHashMap<>();
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Map<Good, Integer> getGoods() {
         return goods;
-    }
-
-    public void setGoods(Map<Good, Integer> goods) {
-        this.goods = goods;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Cart for user ");
-        stringBuilder.append(user.getName());
-        stringBuilder.append(": ");
-        stringBuilder.append(LINE_SEP);
-
+        stringBuilder.append("Cart for user ")
+                .append(user.getName())
+                .append(": ")
+                .append(LINE_SEP);
+//TODO refactor with foreach
         for (Map.Entry<Good, Integer> each : goods.entrySet()) {
             stringBuilder.append("  - ");
             stringBuilder.append(each.getKey().toString() + " - " + each.getValue() + " unit.");
             stringBuilder.append(LINE_SEP);
         }
+
+//        goods.forEach((k, v) -> );
+
         return stringBuilder.toString();
     }
 
-    public void print() {
-        System.out.println(this);
-    }
 
-    public void addToCart(Good good, Integer amount) {
+    public void addToCart(Good good, int amount) {
         if (good.getAmount() < amount) {
             throw new RuntimeException(EXCEPTION_NOT_ENOUGH_GOOD_AMOUNT);
         }
+
+        int newCartAmount = amount;
+
         if (goods.containsKey(good)) {
             int currentAmount = goods.get(good);
-            goods.put(good, currentAmount + amount);
-        } else {
-            goods.put(good, amount);
+
+            newCartAmount += currentAmount;
         }
+
+        goods.put(good, newCartAmount);
+
         good.setAmount(good.getAmount() - amount);
     }
 
@@ -73,13 +68,16 @@ public class Cart {
         }
 
         good.setAmount(good.getAmount() + goods.get(good));
+
         goods.remove(good);
+
         relatedGoodsRemove(good);
 
     }
 
     public void relatedGoodsRemove(Good good) {
         List<Good> relatedGoods = getRelatedGoodsTo(good);
+
         for (Good each : relatedGoods) {
             each.setAmount(each.getAmount() + goods.get(each));
             goods.remove(each);
@@ -87,25 +85,64 @@ public class Cart {
     }
 
     public List<Good> getRelatedGoodsTo(Good good) {
-        List<Good> result = new ArrayList<>();
+
         CategoryNode node = good.getCategoryNode();
 
-        for (Map.Entry<Good, Integer> each : goods.entrySet()) {
+       /* for (Map.Entry<Good, Integer> each : goods.entrySet()) {
             CategoryNode eachNode = each.getKey().getCategoryNode();
             if (CategoryNode.isChild(eachNode, node))
                 result.add(each.getKey());
-        }
-        return result;
+        }*/
+
+
+/*        goods.entrySet()
+                .parallelStream()
+                .filter(e ->  CategoryNode.isChild(e.getKey().getCategoryNode(), node))
+                .map(e -> {
+                    Good key = e.getKey();
+                    key.setAmount(key.getAmount() + goods.get(key));
+                    return key;
+                }).forEach(k -> goods.remove(k));
+
+        */
+
+
+
+        return goods.entrySet()
+                .stream()
+                .filter(e ->  CategoryNode.isChild(e.getKey().getCategoryNode(), node))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
+
+    public int getTotal2() {
+        Purchased purchased = (m) -> {
+            int total = 0;
+
+            for (Map.Entry<Good, Integer> each : m.entrySet())
+                total += each.getValue() * each.getKey().getPrice();
+
+            return total;
+        };
+
+        return purchased.getTotalPrice(goods);
     }
 
     public int getTotal() {
-        Purchased purchased = (m) -> {
-            int total = 0;
-            for(Map.Entry<Good, Integer> each:m.entrySet())
-            total += each.getValue() * each.getKey().getPrice();
-            return total;
-        };
+        Purchased purchased = m -> m
+                .entrySet()
+                .stream()
+                .mapToInt(e -> e.getValue() * e.getKey().getPrice())
+                .sum();
+
         return purchased.getTotalPrice(goods);
     }
 }
+
+/*
+ * String str = "Hello";
+ *
+ * iter0 -> str + 0 -> str = "Hello0"; "Hello"
+ * iter1 ->  + 0 -> str = "Hello0"; "Hello"
+ * */
 

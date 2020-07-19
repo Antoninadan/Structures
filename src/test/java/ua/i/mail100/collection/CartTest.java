@@ -2,12 +2,8 @@ package ua.i.mail100.collection;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ua.i.mail100.collection.*;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -73,8 +69,10 @@ class CartTest {
         one.addToCart(radio, 2);
         one.addToCart(remote, 2);
 
-        assertEquals(3, one.getGoods().get(radio));
-        assertEquals(2, one.getGoods().get(remote));
+        Map<Good, Integer> goods = one.getGoods();
+
+        assertEquals(3, goods.get(radio));
+        assertEquals(2, goods.get(remote));
         assertEquals(1, radio.getAmount());
         assertEquals(18, remote.getAmount());
     }

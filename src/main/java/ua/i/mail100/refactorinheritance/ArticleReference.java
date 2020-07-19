@@ -13,8 +13,6 @@ public class ArticleReference extends Reference {
         this.endPage = endPage;
     }
 
-    @Override
-    public void processing(Reference reference) {
-        System.out.println("do with article reference");
-    }
 }
+
+

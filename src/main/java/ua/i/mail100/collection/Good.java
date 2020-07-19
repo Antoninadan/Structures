@@ -2,6 +2,7 @@ package ua.i.mail100.collection;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class Good {
     private static final String DATE_FORMAT = "yyyy.MM.dd";
@@ -9,8 +10,8 @@ public class Good {
     private String name;
     private String producer;
     private Date manufactureDate;
-    private Integer price;
-    private Integer amount;
+    private int price;
+    private int amount;
     private CategoryNode categoryNode;
 
     public Good(String name, String producer, Date manufactureDate, Integer price, Integer amount, CategoryNode categoryNode) {
@@ -22,20 +23,12 @@ public class Good {
         this.categoryNode = categoryNode;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
     }
 
     public CategoryNode getCategoryNode() {
         return categoryNode;
-    }
-
-    public void setCategoryNode(CategoryNode categoryNode) {
-        this.categoryNode = categoryNode;
     }
 
     public Integer getAmount() {
@@ -56,14 +49,30 @@ public class Good {
     }
 
     public String toStringShop() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-
-        return categoryNode+
-                ": " + name +
-                " " + producer +
-                ", " + dateFormat.format(manufactureDate) +
+        return categoryNode +
+                ": " +
+                toString() +
                 ", price = " + price +
                 ", amount = " + amount;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Good)) return false;
+        Good good = (Good) o;
+        return getPrice() == good.getPrice() &&
+                Objects.equals(name, good.name) &&
+                Objects.equals(producer, good.producer) &&
+                Objects.equals(manufactureDate, good.manufactureDate) &&
+                Objects.equals(getCategoryNode(), good.getCategoryNode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, producer, manufactureDate, getPrice(), getCategoryNode());
+    }
+
 
 }

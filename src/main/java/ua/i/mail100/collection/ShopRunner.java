@@ -47,13 +47,13 @@ public class ShopRunner {
         one.addToCart(remote, 2);
         one.addToCart(charge, 3);
         one.addToCart(charge2, 4);
-        one.print();
+        System.out.println(one);
         System.out.println("total = " + one.getTotal());
         System.out.println();
 
         System.out.println("Remove a7:");
         one.removeFromCart(a7);
-        one.print();
+        System.out.println(one);
         System.out.println("total = " + one.getTotal());
         System.out.println();
     }

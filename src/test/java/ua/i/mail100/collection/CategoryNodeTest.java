@@ -2,8 +2,6 @@ package ua.i.mail100.collection;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ua.i.mail100.collection.Category;
-import ua.i.mail100.collection.CategoryNode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,10 +36,23 @@ class CategoryNodeTest {
     }
 
     @Test
+    void getParentCategoryList2() {
+        categoryNodeThree.getParentCategoryList2();
+    }
+
+    @Test
     void isChild() {
         assertTrue(CategoryNode.isChild(categoryNodeThree, categoryNodeTwo));
         assertTrue(CategoryNode.isChild(categoryNodeThree, categoryNodeOne));
         assertFalse(CategoryNode.isChild(categoryNodeThree, categoryNodeThree));
         assertFalse(CategoryNode.isChild(categoryNodeThree, categoryNodeSeven));
+    }
+
+    @Test
+    void isChild2() {
+        assertTrue(categoryNodeThree.isChild2(categoryNodeTwo));
+        assertTrue(categoryNodeThree.isChild2(categoryNodeOne));
+        assertFalse(categoryNodeThree.isChild2(categoryNodeThree));
+        assertFalse(categoryNodeThree.isChild2(categoryNodeSeven));
     }
 }

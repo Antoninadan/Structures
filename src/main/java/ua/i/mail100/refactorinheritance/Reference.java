@@ -20,6 +20,5 @@ public abstract class Reference {
         this.volume = volume;
     }
 
-    public abstract void processing(Reference reference);
 
 }
