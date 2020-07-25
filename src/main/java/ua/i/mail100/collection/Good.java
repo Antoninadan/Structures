@@ -31,7 +31,7 @@ public class Good {
         return categoryNode;
     }
 
-    public Integer getAmount() {
+    public int getAmount() {
         return amount;
     }
 
@@ -75,4 +75,11 @@ public class Good {
     }
 
 
+    public void decreaseAmount(int amount) {
+        this.amount -= amount;
+    }
+
+    public void increaseAmount(int amount) {
+        this.amount += amount;
+    }
 }

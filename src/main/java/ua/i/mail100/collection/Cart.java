@@ -1,11 +1,9 @@
 package ua.i.mail100.collection;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Cart {
     private static final String LINE_SEP = System.getProperty("line.separator");
@@ -31,14 +29,10 @@ public class Cart {
                 .append(user.getName())
                 .append(": ")
                 .append(LINE_SEP);
-//TODO refactor with foreach
-        for (Map.Entry<Good, Integer> each : goods.entrySet()) {
-            stringBuilder.append("  - ");
-            stringBuilder.append(each.getKey().toString() + " - " + each.getValue() + " unit.");
-            stringBuilder.append(LINE_SEP);
-        }
 
-//        goods.forEach((k, v) -> );
+        goods.forEach((k, v) -> stringBuilder.append("  - ")
+                .append(k.toString() + " - " + v + " unit.")
+                .append(LINE_SEP));
 
         return stringBuilder.toString();
     }
@@ -50,16 +44,13 @@ public class Cart {
         }
 
         int newCartAmount = amount;
-
         if (goods.containsKey(good)) {
             int currentAmount = goods.get(good);
-
             newCartAmount += currentAmount;
         }
-
         goods.put(good, newCartAmount);
 
-        good.setAmount(good.getAmount() - amount);
+        good.decreaseAmount(amount);
     }
 
     public void removeFromCart(Good good) {
@@ -67,52 +58,44 @@ public class Cart {
             throw new RuntimeException(EXCEPTION_ABSENT_GOOD_IN_CART);
         }
 
-        good.setAmount(good.getAmount() + goods.get(good));
+        good.increaseAmount(goods.get(good));
 
         goods.remove(good);
 
         relatedGoodsRemove(good);
-
     }
 
     public void relatedGoodsRemove(Good good) {
         List<Good> relatedGoods = getRelatedGoodsTo(good);
 
-        for (Good each : relatedGoods) {
-            each.setAmount(each.getAmount() + goods.get(each));
-            goods.remove(each);
-        }
+        relatedGoods.forEach(i -> {
+            i.increaseAmount(goods.get(i));
+            goods.remove(i);
+        });
     }
 
     public List<Good> getRelatedGoodsTo(Good good) {
-
         CategoryNode node = good.getCategoryNode();
 
-       /* for (Map.Entry<Good, Integer> each : goods.entrySet()) {
-            CategoryNode eachNode = each.getKey().getCategoryNode();
-            if (CategoryNode.isChild(eachNode, node))
-                result.add(each.getKey());
-        }*/
+        return goods.entrySet()
+                .stream()
+                .filter(e -> node.isChild(e.getKey().getCategoryNode()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
 
 
-/*        goods.entrySet()
+    public void relatedGoodsRemove2(Good good) {
+        CategoryNode node = good.getCategoryNode();
+
+        goods.entrySet()
                 .parallelStream()
-                .filter(e ->  CategoryNode.isChild(e.getKey().getCategoryNode(), node))
+                .filter(e -> CategoryNode.isChild(e.getKey().getCategoryNode(), node))
                 .map(e -> {
                     Good key = e.getKey();
                     key.setAmount(key.getAmount() + goods.get(key));
                     return key;
                 }).forEach(k -> goods.remove(k));
-
-        */
-
-
-
-        return goods.entrySet()
-                .stream()
-                .filter(e ->  CategoryNode.isChild(e.getKey().getCategoryNode(), node))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
     }
 
     public int getTotal2() {

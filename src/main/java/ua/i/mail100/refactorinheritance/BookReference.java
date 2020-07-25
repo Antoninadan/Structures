@@ -9,9 +9,4 @@ public class BookReference extends Reference {
         super(authors, name, isUpdated, year, volume);
         this.countOfpages = countOfpages;
     }
-
-    @Override
-    public void processing(Reference reference) {
-        System.out.println("do with book reference");
-    }
 }

@@ -37,22 +37,16 @@ class CategoryNodeTest {
 
     @Test
     void getParentCategoryList2() {
-        categoryNodeThree.getParentCategoryList2();
+        categoryNodeThree.getParentCategoryList();
     }
+
+
 
     @Test
     void isChild() {
-        assertTrue(CategoryNode.isChild(categoryNodeThree, categoryNodeTwo));
-        assertTrue(CategoryNode.isChild(categoryNodeThree, categoryNodeOne));
-        assertFalse(CategoryNode.isChild(categoryNodeThree, categoryNodeThree));
-        assertFalse(CategoryNode.isChild(categoryNodeThree, categoryNodeSeven));
-    }
-
-    @Test
-    void isChild2() {
-        assertTrue(categoryNodeThree.isChild2(categoryNodeTwo));
-        assertTrue(categoryNodeThree.isChild2(categoryNodeOne));
-        assertFalse(categoryNodeThree.isChild2(categoryNodeThree));
-        assertFalse(categoryNodeThree.isChild2(categoryNodeSeven));
+        assertTrue(categoryNodeThree.isChild(categoryNodeTwo));
+        assertTrue(categoryNodeThree.isChild(categoryNodeOne));
+        assertFalse(categoryNodeThree.isChild(categoryNodeThree));
+        assertFalse(categoryNodeThree.isChild(categoryNodeSeven));
     }
 }
